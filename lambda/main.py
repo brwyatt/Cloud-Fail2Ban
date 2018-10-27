@@ -3,15 +3,10 @@ import json
 import logging
 import gzip
 
-import boto3
-from boto3.dynamodb.conditions import Key
-
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s %(levelname)s %(message)s')
 log = logging.getLogger()
-
-table = boto3.resource('dynamodb', region_name='us-west-2').Table('F2B')
 
 
 def handle_log_event(event, context):
