@@ -21,14 +21,18 @@ class Filter():
 
     failregexes = []
 
+    jails = []
+
     def __init__(self):
         if self.__class__.__name__ == 'Filter':
             self.subs = Filter.subs
             self.failregexes = Filter.failregexes
+            self.jails = Filter.jails
         else:
             self.subs = {**Filter.subs, **self.__class__.subs}
             self.failregexes = list(set(Filter.failregexes +
                                     self.__class__.failregexes))
+            self.jails = list(set(Filter.jails + self.__class__.jails))
         self.compile_failregexes()
 
     def compile_failregexes(self):
