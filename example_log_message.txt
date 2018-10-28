@@ -21,6 +21,11 @@
             "id": "34357927603023447398559591064828440538568362952197668866",
             "timestamp": 1540662758000,
             "message": "Oct 27 17:52:38 stratus sshd[22835]: Connection closed by 148.240.49.191 port 57489 [preauth]"
+        },
+        {
+            "id": "34357927603023447398559591064828440538568362952197668866",
+            "timestamp": 1540662758000,
+            "message": "Oct 28 12:42:33 stratus sshd[17548]: fatal: Unable to negotiate with 116.31.116.38 port 51122: no matching key exchange method found. Their offer: diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group1-sha1 [preauth]"
         }
     ]
 }
