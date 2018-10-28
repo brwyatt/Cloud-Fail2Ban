@@ -10,5 +10,5 @@ subs = {
     '__kernel_prefix': 'kernel: \[ *\d+\.\d+\]',
     '__pid_re': '(?:\[\d+\])',
     '__md5hex': '(?:[\da-f]{2}:){15}[\da-f]{2}',
-    '__prefix_line': '\s*%(__bsd_syslog_verbose)s?\s*(?:%(__hostname)s )?(?:%(__kernel_prefix)s )?(?:@vserver_\S+ )?%(__daemon_combs_re)s?\s%(__daemon_extra_re)s?\s*',
+    '__prefix_line': '%(__date_re)s %(__hostname)s %(_daemon)s%(__pid_re)s: ',
 }
