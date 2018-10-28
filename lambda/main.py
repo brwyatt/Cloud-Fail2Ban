@@ -32,3 +32,15 @@ def handle_log_event(event, context):
                     if resp and 'host' in resp.groupdict():
                         log.warning('      Found match! Host: {0}'.format(
                             resp.group('host')))
+
+
+if __name__ == '__main__':
+    with open('example_log_message.txt') as f:
+        log_event_compressed = base64.b64encode(gzip.compress(
+            bytes(f.read(), 'utf-8')))
+
+    handle_log_event({
+        'awslogs': {
+            'data': log_event_compressed,
+        }
+    }, None)
