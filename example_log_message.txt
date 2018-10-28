@@ -1,0 +1,26 @@
+{
+    "messageType": "DATA_MESSAGE",
+    "owner": "177542564244",
+    "logGroup": "Auth",
+    "logStream": "i-038228b20d3004274",
+    "subscriptionFilters": [
+        "LambdaStream_F2B"
+    ],
+    "logEvents": [
+        {
+            "id": "34357927603023447398559591064828440538568362952197668864",
+            "timestamp": 1540662758000,
+            "message": "Oct 27 17:52:38 stratus sshd[22835]: Invalid user bpoint from 148.240.49.191"
+        },
+        {
+            "id": "34357927603023447398559591064828440538568362952197668865",
+            "timestamp": 1540662758000,
+            "message": "Oct 27 17:52:38 stratus sshd[22835]: input_userauth_request: invalid user bpoint [preauth]"
+        },
+        {
+            "id": "34357927603023447398559591064828440538568362952197668866",
+            "timestamp": 1540662758000,
+            "message": "Oct 27 17:52:38 stratus sshd[22835]: Connection closed by 148.240.49.191 port 57489 [preauth]"
+        }
+    ]
+}
