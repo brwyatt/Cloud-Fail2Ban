@@ -7,7 +7,7 @@ subs = common.subs
 
 failregex = [
     '^%(__prefix_line)sDid not receive identification string from %(host)s\s*$',
-    '^%(__prefix_line)s(fatal: )?Unable to negotiate with %(host)s port .*: no matching key exchange method found\. .*$'
+    '^%(__prefix_line)s(?:fatal: )?Unable to negotiate with %(host)s port .*: no matching key exchange method found\. .*$'
 ]
 
 
