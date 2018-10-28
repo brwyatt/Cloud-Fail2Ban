@@ -6,9 +6,7 @@ class format_dict(dict):
 def format_all(string, subs):
     if type(subs) is not format_dict and type(subs) is dict:
         subs = format_dict(subs)
-    print(subs)
     new_string = string % subs
-    print(new_string)
     if new_string == string:  # No substitutions needed
         return string
     else:  # We made a substitution
