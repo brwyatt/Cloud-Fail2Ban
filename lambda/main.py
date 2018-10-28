@@ -32,6 +32,9 @@ def handle_log_event(event, context):
                     if resp and 'host' in resp.groupdict():
                         log.warning('      Found match! Host: {0}'.format(
                             resp.group('host')))
+        else:
+            log.critical('Invalid logGroup "{0}"! No parsers available!'
+                         .format(log_event['logGroup']))
 
 
 if __name__ == '__main__':
