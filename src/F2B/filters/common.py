@@ -4,6 +4,7 @@ subs = {
     '__daemon_combs_re': '(?:%(__pid_re)s?:\s+%(__daemon_re)s|%(__daemon_re)s%(__pid_re)s?:?)',
     '__daemon_extra_re': '(?:\[ID \d+ \S+\])',
     '__daemon_re': '[\[\(]?%(_daemon)s(?:\(\S+\))?[\]\)]?:?',
+    '__date_re': '\S+ \d+ \d+:\d+:\d+',
     'host': '(?P<host>\d{1,3}(?:\.\d{1,3}){3})',
     '__hostname': '\S+',
     '__kernel_prefix': 'kernel: \[ *\d+\.\d+\]',
