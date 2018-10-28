@@ -3,11 +3,11 @@ class format_dict(dict):
         return '{'+key+'}'
 
 
-def format_all(string, subs):
+def compile_regex(regex, subs):
     if type(subs) is not format_dict and type(subs) is dict:
         subs = format_dict(subs)
-    new_string = string % subs
-    if new_string == string:  # No substitutions needed
-        return string
+    compiled_regex = regex % subs
+    if compiled_regex == regex:  # No substitutions made
+        return regex
     else:  # We made a substitution
-        return format_all(new_string, subs)
+        return compile_regex(compiled_regex, subs)
