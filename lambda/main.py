@@ -1,15 +1,20 @@
 import base64
+import gzip
 import json
 import logging
-import gzip
+import os
 
 from F2B.filters.auth.sshd import Sshd
 from F2B.filters.auth.sshd_ddos import Sshd_Ddos
 
 
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s %(levelname)s %(message)s')
 log = logging.getLogger()
+try:
+        log.setLevel(getattr(logging, os.environ['LOGLEVEL']))
+        log.info('LogLevel set to {0} by environment variable'
+                 .format(os.environ['LOGLEVEL']))
+except:
+        log.setLevel(logging.WARNING)
 
 logParsers = {
     'Auth': [Sshd, Sshd_Ddos]
