@@ -7,22 +7,22 @@ class Sshd(Filter):
     }
 
     failregexes = [
-         '^%(__prefix_line)s(?:error: PAM: )?[aA]uthentication (?:failure|error) for .* from <HOST>( via \S+)?\s*$',
-         '^%(__prefix_line)s(?:error: PAM: )?User not known to the underlying authentication module for .* from <HOST>\s*$',
-         '^%(__prefix_line)sFailed \S+ for .*? from <HOST>(?: port \d*)?(?: ssh\d*)?(: (ruser .*|(\S+ ID \S+ \(serial \d+\) CA )?\S+ %(__md5hex)s(, client user ".*", client host ".*")?))?\s*$',
-         '^%(__prefix_line)sROOT LOGIN REFUSED.* FROM <HOST>\s*$',
-         '^%(__prefix_line)s[iI](?:llegal|nvalid) user .* from <HOST>\s*$',
-         '^%(__prefix_line)sUser .+ from <HOST> not allowed because not listed in AllowUsers\s*$',
-         '^%(__prefix_line)sUser .+ from <HOST> not allowed because listed in DenyUsers\s*$',
-         '^%(__prefix_line)sUser .+ from <HOST> not allowed because not in any group\s*$',
-         '^%(__prefix_line)srefused connect from \S+ \(<HOST>\)\s*$',
-         '^%(__prefix_line)sReceived disconnect from <HOST>: 3: \S+: Auth fail$',
-         '^%(__prefix_line)sUser .+ from <HOST> not allowed because a group is listed in DenyGroups\s*$',
-         '^%(__prefix_line)sUser .+ from <HOST> not allowed because none of user\'s groups are listed in AllowGroups\s*$',
-         '^(?P<__prefix>%(__prefix_line)s)User .+ not allowed because account is locked<SKIPLINES>(?P=__prefix)(?:error: )?Received disconnect from <HOST>: 11: .+ \[preauth\]$',
-         '^(?P<__prefix>%(__prefix_line)s)Disconnecting: Too many authentication failures for .+? \[preauth\]<SKIPLINES>(?P=__prefix)(?:error: )?Connection closed by <HOST> \[preauth\]$',
-         '^(?P<__prefix>%(__prefix_line)s)Connection from <HOST> port \d+(?: on \S+ port \d+)?<SKIPLINES>(?P=__prefix)Disconnecting: Too many authentication failures for .+? \[preauth\]$',
-         '^%(__prefix_line)spam_unix\(sshd:auth\):\s+authentication failure;\s*logname=\S*\s*uid=\d*\s*euid=\d*\s*tty=\S*\s*ruser=\S*\s*rhost=<HOST>\s.*$',
+        '^%(__prefix_line)s(?:error: PAM: )?[aA]uthentication (?:failure|error) for .* from %(host)s( via \S+)?\s*$',
+        '^%(__prefix_line)s(?:error: PAM: )?User not known to the underlying authentication module for .* from %(host)s\s*$',
+        '^%(__prefix_line)sFailed \S+ for .*? from %(host)s(?: port \d*)?(?: ssh\d*)?(: (ruser .*|(\S+ ID \S+ \(serial \d+\) CA )?\S+ %(__md5hex)s(, client user ".*", client host ".*")?))?\s*$',
+        '^%(__prefix_line)sROOT LOGIN REFUSED.* FROM %(host)s\s*$',
+        '^%(__prefix_line)s[iI](?:llegal|nvalid) user .* from %(host)s(?: port \d+)?\s*$',
+        '^%(__prefix_line)sUser .+ from %(host)s not allowed because not listed in AllowUsers\s*$',
+        '^%(__prefix_line)sUser .+ from %(host)s not allowed because listed in DenyUsers\s*$',
+        '^%(__prefix_line)sUser .+ from %(host)s not allowed because not in any group\s*$',
+        '^%(__prefix_line)srefused connect from \S+ \(%(host)s\)\s*$',
+        '^%(__prefix_line)sReceived disconnect from %(host)s: 3: \S+: Auth fail$',
+        '^%(__prefix_line)sUser .+ from %(host)s not allowed because a group is listed in DenyGroups\s*$',
+        '^%(__prefix_line)sUser .+ from %(host)s not allowed because none of user\'s groups are listed in AllowGroups\s*$',
+        '^(?P<__prefix>%(__prefix_line)s)User .+ not allowed because account is locked<SKIPLINES>(?P=__prefix)(?:error: )?Received disconnect from %(host)s: 11: .+ \[preauth\]$',
+        '^(?P<__prefix>%(__prefix_line)s)Disconnecting: Too many authentication failures for .+? \[preauth\]<SKIPLINES>(?P=__prefix)(?:error: )?Connection closed by %(host)s \[preauth\]$',
+        '^(?P<__prefix>%(__prefix_line)s)Connection from %(host)s port \d+(?: on \S+ port \d+)?<SKIPLINES>(?P=__prefix)Disconnecting: Too many authentication failures for .+? \[preauth\]$',
+        '^%(__prefix_line)spam_unix\(sshd:auth\):\s+authentication failure;\s*logname=\S*\s*uid=\d*\s*euid=\d*\s*tty=\S*\s*ruser=\S*\s*rhost=%(host)s\s.*$',
     ]
 
     jails = ['sshd']
