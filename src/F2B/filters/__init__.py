@@ -1,3 +1,4 @@
+import logging
 import re
 
 from F2B.utils import compile_regex
@@ -24,6 +25,7 @@ class Filter():
     jails = []
 
     def __init__(self):
+        self.log = logging.getLogger(self.__module__)
         if self.__class__.__name__ == 'Filter':
             self.subs = Filter.subs
             self.failregexes = Filter.failregexes
@@ -36,16 +38,25 @@ class Filter():
         self.compile_failregexes()
 
     def compile_failregexes(self):
+        self.log.debug('Compiling/resolving regular expression list')
         compiled_failregexes = []
         for failregex in self.failregexes:
-            compiled_failregexes.append(compile_regex(failregex, self.subs))
+            compiled_failregex = compile_regex(failregex, self.subs)
+            compiled_failregexes.append(compiled_failregex)
+            self.log.debug('Compiled "{0}" to "{1}"'.format(
+                failregex, compiled_failregex))
 
         self.failregexes = compiled_failregexes
+        self.log.debug('Regex compile complete')
 
     def test_line(self, log_line):
+        self.log.debug('Testing "{0}"'.format(log_line))
         for failregex in self.failregexes:
-            match = re.match(failregex, log_line)
+            self.log.debug('Testing against "{0}"'.format(failregex))
+            match = re.match(failregex, log_line.strip())
+            self.log.debug('match = {0}'.format(match))
             if match:
+                self.log.debug('Found match against "{0}"'.format(failregex))
                 return match
 
         return False

@@ -31,14 +31,17 @@ def handle_log_event(event, context):
     if log_event['logGroup'] in logParsers:
         log.info('Running parsers for {0}'.format(log_event['logGroup']))
         for parser in logParsers[log_event['logGroup']]:
-            log.info('  Running parser "{0}"'.format(parser.__name__))
+            log.info('Running parser "{0}"'.format(parser.__name__))
             parser_instance = parser()
             for event in log_event['logEvents']:
-                log.info('    Testing line: {0}'.format(event['message']))
+                log.info('Testing line: {0}'.format(event['message']))
                 resp = parser_instance.test_line(event['message'])
+                log.debug('resp: {0}'.format(resp))
                 if resp and 'host' in resp.groupdict():
-                    log.warning('      Found match! Host: {0}'.format(
+                    log.warning('Found match! Host: {0}'.format(
                         resp.group('host')))
+                else:
+                    log.debug('No match!')
     else:
         log.critical('Invalid logGroup "{0}"! No parsers available!'
                      .format(log_event['logGroup']))
