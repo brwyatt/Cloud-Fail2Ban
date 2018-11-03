@@ -41,7 +41,7 @@ class Filter():
         self.log.debug('Compiling/resolving regular expression list')
         compiled_failregexes = []
         for failregex in self.failregexes:
-            compiled_failregex = compile_regex(failregex, self.subs)
+            compiled_failregex = compile_regex(failregex, self.subs).strip()
             compiled_failregexes.append(compiled_failregex)
             self.log.debug('Compiled "{0}" to "{1}"'.format(
                 failregex, compiled_failregex))
@@ -51,9 +51,10 @@ class Filter():
 
     def test_line(self, log_line):
         self.log.debug('Testing "{0}"'.format(log_line))
+        log_line = log_line.strip()
         for failregex in self.failregexes:
             self.log.debug('Testing against "{0}"'.format(failregex))
-            match = re.match(failregex, log_line.strip())
+            match = re.match(failregex, log_line)
             self.log.debug('match = {0}'.format(match))
             if match:
                 self.log.debug('Found match against "{0}"'.format(failregex))
