@@ -11,4 +11,4 @@ class Sshd_Ddos(Filter):
         '^%(__prefix_line)s(?:fatal: )?Unable to negotiate with %(host)s port .*: no matching key exchange method found\. .*$'
     ]
 
-    jails = ['sshd']
+    jails = ['sshd-ddos']
