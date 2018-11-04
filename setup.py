@@ -16,14 +16,14 @@ setup(
     package_dir={'': 'src'},
     include_package_data=False,
     setup_requires=[
-        'setuptools==40.5.0',
-        'pytest-runner==4.2'
+        'pytest-runner==3.0.1',
+        'setuptools==20.7.0'
     ],
     install_requires=[
         'boto3==1.7.35'
     ],
     tests_require=[
-        'pytest==3.10.0',
-        'pytest-cov==2.6.0'
+        'pytest==3.4.1',
+        'pytest-cov==2.5.1'
     ]
 )
