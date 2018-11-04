@@ -1,11 +1,10 @@
-import base64
-import gzip
 import json
 import logging
 import os
 
 from F2B.filters.auth.sshd import Sshd
 from F2B.filters.auth.sshd_ddos import Sshd_Ddos
+from F2B.utils import decompress_cloudwatch_event
 
 
 logging.basicConfig()  # needed to run outside Lambda
@@ -25,10 +24,8 @@ logParsers = {
 
 def handle_log_event(event, context):
     log.debug('Received CloudWatch event: {0}'.format(json.dumps(event)))
-    log_event_compressed = event['awslogs']['data']
-    log_event = json.loads(str(gzip.decompress(base64.b64decode(
-        log_event_compressed)), 'utf-8'))
-    log.debug('Decompressed log data: {0}'.format(json.dumps(log_event)))
+    event = decompress_cloudwatch_event(event)
+    log_event = event['awslogs']['data']
 
     if log_event['logGroup'] in logParsers:
         log.info('Running parsers for {0}'.format(log_event['logGroup']))
@@ -47,17 +44,3 @@ def handle_log_event(event, context):
     else:
         log.critical('Invalid logGroup "{0}"! No parsers available!'
                      .format(log_event['logGroup']))
-
-
-if __name__ == '__main__':
-    with open('example_log_message.txt') as f:
-        log_event_compressed = str(base64.b64encode(gzip.compress(
-            bytes(f.read(), 'utf-8'))), 'utf-8')
-
-    test_data = {
-        'awslogs': {
-            'data': log_event_compressed,
-        }
-    }
-
-    handle_log_event(test_data, None)
