@@ -30,7 +30,7 @@
         {
             "id": "34357927603023447343698752309459236965365947652376545544",
             "timestamp": 1540632758432,
-            "message": "Nov 3 18:55:57 gateway sshd[9255]: Invalid user sadfsdfad from 172.16.20.163 port 44276"
+            "message": "Nov  3 18:55:57 gateway sshd[9255]: Invalid user sadfsdfad from 172.16.20.163 port 44276"
         }
     ]
 }
