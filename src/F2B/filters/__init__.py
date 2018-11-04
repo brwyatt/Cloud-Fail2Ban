@@ -66,6 +66,6 @@ class Filter():
             self.log.debug('match = {0}'.format(match))
             if match:
                 self.log.debug('Found match against "{0}"'.format(failregex))
-                return match
+                return match.groupdict()
 
         return False

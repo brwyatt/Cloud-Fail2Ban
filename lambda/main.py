@@ -39,9 +39,9 @@ def handle_log_event(event, context):
                 log.info('Testing line: {0}'.format(event['message']))
                 resp = parser_instance.test_line(event['message'])
                 log.debug('resp: {0}'.format(resp))
-                if resp and 'host' in resp.groupdict():
+                if resp and 'host' in resp:
                     log.warning('Found match! Host: {0}'.format(
-                        resp.group('host')))
+                        resp['host']))
                 else:
                     log.debug('No match!')
     else:
