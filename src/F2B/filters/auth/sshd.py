@@ -19,9 +19,6 @@ class Sshd(Filter):
         '^%(__prefix_line)sReceived disconnect from %(host)s: 3: \S+: Auth fail$',
         '^%(__prefix_line)sUser .+ from %(host)s not allowed because a group is listed in DenyGroups\s*$',
         '^%(__prefix_line)sUser .+ from %(host)s not allowed because none of user\'s groups are listed in AllowGroups\s*$',
-        '^(?P<__prefix>%(__prefix_line)s)User .+ not allowed because account is locked<SKIPLINES>(?P=__prefix)(?:error: )?Received disconnect from %(host)s: 11: .+ \[preauth\]$',
-        '^(?P<__prefix>%(__prefix_line)s)Disconnecting: Too many authentication failures for .+? \[preauth\]<SKIPLINES>(?P=__prefix)(?:error: )?Connection closed by %(host)s \[preauth\]$',
-        '^(?P<__prefix>%(__prefix_line)s)Connection from %(host)s port \d+(?: on \S+ port \d+)?<SKIPLINES>(?P=__prefix)Disconnecting: Too many authentication failures for .+? \[preauth\]$',
         '^%(__prefix_line)spam_unix\(sshd:auth\):\s+authentication failure;\s*logname=\S*\s*uid=\d*\s*euid=\d*\s*tty=\S*\s*ruser=\S*\s*rhost=%(host)s\s.*$',
     ]
 
