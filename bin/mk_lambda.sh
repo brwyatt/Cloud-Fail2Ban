@@ -7,6 +7,14 @@ lambda_dir="${dir}/lambda"
 modules_dir="${dir}/src"
 # dependencies_dir="${dir}/deps"
 
+cd "${dir}"
+python3 setup.py test
+
+if [ $? -ne 0 ]; then
+    echo 'Tests failed! Aborting!' >&2
+    exit 99
+fi
+
 mkdir -p "${build_dir}"
 rm -f "${lambda_zip}"
 
