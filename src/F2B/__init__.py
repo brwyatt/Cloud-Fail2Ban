@@ -17,12 +17,14 @@ def process_log_events(log_events, parsers):
                 log.info('Found match! Host: {0}'.format(resp['host']))
                 if parser_name not in matches:
                     matches[parser_name] = []
-                matches[parser_name].append({
+                match = {
                     'Host': resp['host'],
                     'EventID': event['id'],
                     'MatchID': uuid5(parser_instance.uuid, event['id']),
                     'timestamp': event['timestamp']
-                })
+                }
+                log.debug('Match data: {0}'.format(match))
+                matches[parser_name].append(match)
             else:
                 log.debug('No match!')
     return matches
