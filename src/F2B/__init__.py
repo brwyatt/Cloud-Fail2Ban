@@ -18,7 +18,8 @@ def process_log_events(log_events, parsers):
                     matches[parser_name] = []
                 matches[parser_name].append({
                     'Host': resp['host'],
-                    'EventID': event['id']
+                    'EventID': event['id'],
+                    'timestamp': event['timestamp']
                 })
             else:
                 log.debug('No match!')

@@ -37,7 +37,8 @@ class SimpleTestFilter(Filter):
          'tests.test_F2B.SimpleTestFilter': [
              {
                  'Host': '127.0.0.1',
-                 'EventID': '21245'
+                 'EventID': '21245',
+                 'timestamp': 1541698946
              }
          ]
      }),
