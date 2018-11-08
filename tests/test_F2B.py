@@ -1,4 +1,5 @@
 import pytest
+from uuid import uuid5
 
 from F2B import process_log_events
 from F2B.filters import Filter
@@ -38,6 +39,7 @@ class SimpleTestFilter(Filter):
              {
                  'Host': '127.0.0.1',
                  'EventID': '21245',
+                 'MatchID': uuid5(SimpleTestFilter().uuid, '21245'),
                  'timestamp': 1541698946
              }
          ]

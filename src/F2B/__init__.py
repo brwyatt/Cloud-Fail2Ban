@@ -1,4 +1,5 @@
 import logging
+from uuid import uuid5
 
 log = logging.getLogger()
 
@@ -19,6 +20,7 @@ def process_log_events(log_events, parsers):
                 matches[parser_name].append({
                     'Host': resp['host'],
                     'EventID': event['id'],
+                    'MatchID': uuid5(parser_instance.uuid, event['id']),
                     'timestamp': event['timestamp']
                 })
             else:
