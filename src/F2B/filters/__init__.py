@@ -22,27 +22,15 @@ class Filter():
 
     failregexes = []
 
-    jails = []
-
-    ttl = 3600
-
-    max_fail_count = 3
-
     def __init__(self):
         self.log = logging.getLogger(self.__module__)
         if self.__class__.__name__ == 'Filter':
             self.subs = Filter.subs
             self.failregexes = Filter.failregexes
-            self.jails = Filter.jails
-            self.ttl = Filter.ttl
-            self.max_fail_count = Filter.max_fail_count
         else:
             self.subs = {**Filter.subs, **self.__class__.subs}
             self.failregexes = list(set(Filter.failregexes +
                                     self.__class__.failregexes))
-            self.jails = list(set(Filter.jails + self.__class__.jails))
-            self.ttl = self.__class__.ttl
-            self.max_fail_count = self.__class__.max_fail_count
         self.compile_failregexes()
 
     def compile_failregexes(self):

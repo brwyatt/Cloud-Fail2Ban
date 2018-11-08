@@ -21,5 +21,3 @@ class Sshd(Filter):
         '^%(__prefix_line)sUser .+ from %(host)s not allowed because none of user\'s groups are listed in AllowGroups\s*$',
         '^%(__prefix_line)spam_unix\(sshd:auth\):\s+authentication failure;\s*logname=\S*\s*uid=\d*\s*euid=\d*\s*tty=\S*\s*ruser=\S*\s*rhost=%(host)s\s.*$',
     ]
-
-    jails = ['sshd']
