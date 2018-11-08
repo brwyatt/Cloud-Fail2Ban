@@ -1,5 +1,6 @@
 import logging
 import re
+from uuid import UUID, uuid5
 
 from F2B.utils import compile_regex
 
@@ -22,15 +23,20 @@ class Filter():
 
     failregexes = []
 
+    uuid = UUID('c1a820c0-5a1e-4d99-8234-1bdf71aec514')
+
     def __init__(self):
         self.log = logging.getLogger(self.__module__)
         if self.__class__.__name__ == 'Filter':
             self.subs = Filter.subs
             self.failregexes = Filter.failregexes
+            self.uuid = Filter.uuid
         else:
             self.subs = {**Filter.subs, **self.__class__.subs}
             self.failregexes = list(set(Filter.failregexes +
                                     self.__class__.failregexes))
+            self.uuid = uuid5(Filter.uuid, '{0}.{1}'.format(
+                self.__module__, self.__class__.__name__))
         self.compile_failregexes()
 
     def compile_failregexes(self):

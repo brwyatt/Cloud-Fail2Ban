@@ -1,4 +1,5 @@
 import pytest
+from uuid import UUID
 
 from F2B.filters.auth.sshd import Sshd
 
@@ -23,3 +24,7 @@ def test_sshd_filters(test_data, result):
     sshd = Sshd()
 
     assert sshd.test_line(test_data) == result
+
+
+def test_sshd_filter_uuid():
+    assert Sshd().uuid == UUID('8df75b77-776d-55d0-9371-262758aba00f')

@@ -1,4 +1,5 @@
 import pytest
+from uuid import UUID
 
 from F2B.filters.auth.sshd_ddos import Sshd_Ddos
 
@@ -15,3 +16,7 @@ def test_sshd_ddos_filters(test_data, result):
     sshd_ddos = Sshd_Ddos()
 
     assert sshd_ddos.test_line(test_data) == result
+
+
+def test_sshd_ddos_filter_uuid():
+    assert Sshd_Ddos().uuid == UUID('051b3a45-048a-5201-b9b3-cde6835df08d')

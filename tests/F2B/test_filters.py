@@ -1,4 +1,5 @@
 import pytest
+from uuid import UUID
 
 from F2B.filters import Filter
 
@@ -12,3 +13,7 @@ def test_filter(test_data, result):
 
     assert generic_filter.failregexes == []
     assert generic_filter.test_line(test_data) == result
+
+
+def test_filter_uuid():
+    assert Filter().uuid == UUID('c1a820c0-5a1e-4d99-8234-1bdf71aec514')
