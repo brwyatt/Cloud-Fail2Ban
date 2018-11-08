@@ -14,7 +14,7 @@ class SimpleTestFilter(Filter):
     ([
         {
             'id': '12345',
-            'timesamp': 1541698535,
+            'timestamp': 1541698535,
             'message': 'Test',
         }
      ],
@@ -23,12 +23,12 @@ class SimpleTestFilter(Filter):
     ([
         {
             'id': '12345',
-            'timesamp': 1541698535,
+            'timestamp': 1541698535,
             'message': 'Test',
         },
         {
             'id': '21245',
-            'timesamp': 1541698946,
+            'timestamp': 1541698946,
             'message': 'This Host Matches: 127.0.0.1',
         }
      ],
