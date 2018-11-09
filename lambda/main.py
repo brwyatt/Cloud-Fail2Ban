@@ -37,7 +37,8 @@ def handle_log_event(event, context):
     if cw_event['logGroup'] in logParsers:
         log.info('Running parsers for {0}'.format(cw_event['logGroup']))
         matches = process_log_events(cw_event['logEvents'],
-                                     logParsers[cw_event['logGroup']])
+                                     logParsers[cw_event['logGroup']],
+                                     source=cw_event['logStream'])
     else:
         log.critical('Invalid logGroup "{0}"! No parsers available!'
                      .format(cw_event['logGroup']))

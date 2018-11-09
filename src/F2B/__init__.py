@@ -4,7 +4,7 @@ from uuid import uuid5
 log = logging.getLogger()
 
 
-def process_log_events(log_events, parsers):
+def process_log_events(log_events, parsers, source=None):
     matches = {}
     for parser in parsers:
         parser_name = '{0}.{1}'.format(parser.__module__, parser.__name__)
