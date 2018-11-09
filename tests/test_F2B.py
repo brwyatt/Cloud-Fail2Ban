@@ -31,6 +31,11 @@ class SimpleTestFilter(Filter):
             'id': '21245',
             'timestamp': 1541698946000,
             'message': 'This Host Matches: 127.0.0.1',
+        },
+        {
+            'id': '23345',
+            'timestamp': 1541698946012,
+            'message': 'This Host Matches: 127.0.0.2',
         }
      ],
      [SimpleTestFilter, Filter],
@@ -39,6 +44,11 @@ class SimpleTestFilter(Filter):
              {
                  'Host': '127.0.0.1',
                  'MatchID': uuid5(SimpleTestFilter().uuid, '21245'),
+                 'Timestamp': 1541698946
+             },
+             {
+                 'Host': '127.0.0.2',
+                 'MatchID': uuid5(SimpleTestFilter().uuid, '23345'),
                  'Timestamp': 1541698946
              }
          ]
