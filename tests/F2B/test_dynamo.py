@@ -3,8 +3,16 @@ import pytest
 import F2B.dynamo as dynamo
 
 
-def test_add_fail():
-    assert dynamo.add_fail('127.0.0.1', '1245456546541', 'sshd', 3600)
+def test_add_match():
+    assert dynamo.add_match('0.0.0.0', 'xxxxx', 'TEST', 12345, 30)
+
+
+def test_add_match_exception(mock_dynamo_table_put_item_exception):
+    assert not dynamo.add_match('0.0.0.0', 'xxxxx', 'TEST', 12345, 30)
+
+
+def test_add_match_http_error(mock_dynamo_table_put_item_http_error):
+    assert not dynamo.add_match('0.0.0.0', 'xxxxx', 'TEST', 12345, 30)
 
 
 def test_check_ban():
