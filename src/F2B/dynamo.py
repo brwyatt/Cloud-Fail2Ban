@@ -8,7 +8,8 @@ log = logging.getLogger()
 table = boto3.resource('dynamodb', region_name='us-west-2').Table('F2B')
 
 
-def add_match(host, matchid, filter_name, timestamp, ttl, source=None):
+def add_match(host, matchid, filter_name, timestamp, ttl, source=None,
+              eventid=None):
     item = {
         'Host': host,
         'MatchID': str(matchid),
@@ -18,6 +19,9 @@ def add_match(host, matchid, filter_name, timestamp, ttl, source=None):
     }
     if source:
         item['Source'] = str(source)
+
+    if eventid:
+        item['EventID'] = str(eventid)
 
     log.debug('Adding Match to DynamoDB: {0}'.format(item))
     try:

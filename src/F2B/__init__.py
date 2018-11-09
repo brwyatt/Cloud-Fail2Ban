@@ -1,6 +1,8 @@
 import logging
 from uuid import uuid5
 
+from F2B.dynamo import add_match
+
 log = logging.getLogger()
 
 
@@ -19,11 +21,13 @@ def process_log_events(log_events, parsers, source=None):
                     matches[parser_name] = []
                 match = {
                     'Host': resp['host'],
-                    'EventID': event['id'],
                     'MatchID': uuid5(parser_instance.uuid, event['id']),
-                    'timestamp': event['timestamp']
+                    'Timestamp': event['timestamp']
                 }
                 log.debug('Match data: {0}'.format(match))
+                add_match(match['Host'], match['MatchID'], parser_name,
+                          match['Timestamp'], parser_instance.ttl,
+                          source=source, eventid=event['id'])
                 matches[parser_name].append(match)
             else:
                 log.debug('No match!')
