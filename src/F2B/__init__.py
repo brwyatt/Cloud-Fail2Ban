@@ -22,7 +22,7 @@ def process_log_events(log_events, parsers, source=None):
                 match = {
                     'Host': resp['host'],
                     'MatchID': uuid5(parser_instance.uuid, event['id']),
-                    'Timestamp': event['timestamp']
+                    'Timestamp': event['timestamp']/1000  # Convert miliseconds
                 }
                 log.debug('Match data: {0}'.format(match))
                 add_match(match['Host'], match['MatchID'], parser_name,
