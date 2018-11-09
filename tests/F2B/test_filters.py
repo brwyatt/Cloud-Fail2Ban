@@ -12,6 +12,7 @@ def test_filter(test_data, result):
     generic_filter = Filter()
 
     assert generic_filter.failregexes == []
+    assert generic_filter.ttl == 86400
     assert generic_filter.test_line(test_data) == result
 
 

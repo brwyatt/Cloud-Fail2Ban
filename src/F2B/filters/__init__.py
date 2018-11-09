@@ -23,6 +23,8 @@ class Filter():
 
     failregexes = []
 
+    ttl = 86400  # 1 Day
+
     uuid = UUID('c1a820c0-5a1e-4d99-8234-1bdf71aec514')
 
     def __init__(self):
