@@ -1,2 +1,2 @@
-# F2B_Lambda
-Fail2Ban implementation in AWS Lambda to parse logs from CloudWatch
+# Cloud Fail2Ban
+Fail2Ban implementation to parse logs streamed from CloudWatch in Lambda, and push bans to SNS topics
