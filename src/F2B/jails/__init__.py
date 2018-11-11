@@ -49,7 +49,8 @@ class Jail():
             self.log.debug('Host "{0}" had {1} matches'.format(host,
                                                                match_count))
             if match_count >= self.fail_limit:
-                self.log.info('{0} exceeded jail limit and will be banned!')
+                self.log.info('{0} exceeded jail limit and will be banned!'
+                              .format(host))
                 bans.append(host)
 
         return bans
