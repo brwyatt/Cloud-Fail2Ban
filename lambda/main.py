@@ -2,9 +2,11 @@ import json
 import logging
 import os
 
-from F2B import process_log_events
-from F2B.filters.auth.sshd import Sshd
-from F2B.filters.auth.sshd_ddos import Sshd_Ddos
+from F2B import process_log_events, process_jails, send_bans
+import F2B.filters.auth.sshd
+import F2B.filters.auth.sshd_ddos
+import F2B.jails.sshd
+import F2B.jails.sshd_ddos
 from F2B.utils import decompress_cloudwatch_event
 
 
@@ -23,8 +25,16 @@ except:
                 'instead!'.format(loglevel, default_loglevel))
 
 logParsers = {
-    'Auth': [Sshd, Sshd_Ddos]
+    'Auth': [
+        F2B.filters.auth.sshd.Sshd,
+        F2B.filters.auth.sshd_ddos.Sshd_Ddos
+    ]
 }
+
+jails = [
+    F2B.jails.sshd.Sshd,
+    F2B.jails.sshd_ddos.Sshd_Ddos
+]
 
 
 def handle_log_event(event, context):
@@ -42,3 +52,9 @@ def handle_log_event(event, context):
     else:
         log.critical('Invalid logGroup "{0}"! No parsers available!'
                      .format(cw_event['logGroup']))
+
+    # Run matches against jails
+    bans = False
+    if matches:
+        bans = process_jails(matches, jails)
+        log.debug('Banlist: {0}'.format(bans))

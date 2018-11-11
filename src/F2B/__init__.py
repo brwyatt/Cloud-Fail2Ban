@@ -33,3 +33,17 @@ def process_log_events(log_events, parsers, source=None):
             else:
                 log.debug('No match!')
     return matches
+
+
+def process_jails(matches, jails):
+    bans = {}
+    for jail in jails:
+        jail_name = '{0}.{1}'.format(jail.__module__, jail.__name__)
+        log.info('Running jail "{0}"'.format(jail_name))
+        jail_instance = jail()
+        jail_bans = jail_instance.check_bans(matches)
+        if len(jail_bans) > 0:
+            bans[jail_instance.name] = list(set(
+                bans.get(jail_instance.name, []) + jail_bans))
+
+    return bans
