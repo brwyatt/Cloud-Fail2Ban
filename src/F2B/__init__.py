@@ -1,5 +1,8 @@
+import json
 import logging
 from uuid import uuid5
+
+import boto3
 
 from F2B.dynamo import add_match
 
@@ -47,3 +50,23 @@ def process_jails(matches, jails):
                 bans.get(jail_instance.name, []) + jail_bans))
 
     return bans
+
+
+def send_bans(bans):
+    sns = boto3.resource('sns')
+    topic = sns.create_topic(Name='F2B')
+
+    for jail in bans:
+        log.info('Publishing ban for "{0}": {1}'
+                 .format(jail, bans[jail]))
+        res = topic.publish(
+            Message=json.dumps({jail: bans[jail]}),
+            MessageAttributes={
+                'jail': {
+                    'DataType': 'String',
+                    'StringValue': jail
+                }
+            }
+        )
+
+        log.debug('Publish result: {0}'.format(res))

@@ -58,3 +58,7 @@ def handle_log_event(event, context):
     if matches:
         bans = process_jails(matches, jails)
         log.debug('Banlist: {0}'.format(bans))
+
+    # Send the bans
+    if bans:
+        send_bans(bans)
