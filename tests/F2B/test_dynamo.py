@@ -21,5 +21,21 @@ def test_add_match_http_error(mock_dynamo_table_put_item_http_error):
                                 source='Somewhere', eventid='1234')
 
 
-def test_check_ban():
-    assert not dynamo.check_ban('127.0.0.1', 'sshd')
+def test_get_match_count():
+    assert dynamo.get_match_count('0.0.0.0', 'Filter1') == 0
+    assert dynamo.get_match_count('0.0.0.0', ['Filter1']) == 0
+    assert dynamo.get_match_count('0.0.0.0', ['Filter1', 'Filter2']) == 0
+    assert dynamo.get_match_count('0.0.0.0', ['Filter1'], since=12345) == 0
+
+
+def test_get_match_count_filter_type_error():
+    with pytest.raises(TypeError):
+        dynamo.get_match_count('0.0.0.0', 1234)
+
+    with pytest.raises(TypeError):
+        dynamo.get_match_count('0.0.0.0', [1234])
+
+
+def test_get_match_count_since_type_error():
+    with pytest.raises(TypeError):
+        dynamo.get_match_count('0.0.0.0', ['Filter'], since='Fail')

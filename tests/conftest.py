@@ -52,3 +52,12 @@ def mock_dynamo_table_put_item_http_error(monkeypatch):
             }
         }
     monkeypatch.setattr(dynamo.table, 'put_item', mock)
+
+
+@pytest.fixture(autouse=True)
+def moc_dynamo_table_query(monkeypatch):
+    def mock(*args, **kwargs):
+        return {
+            'Items': []
+        }
+    monkeypatch.setattr(dynamo.table, 'query', mock)

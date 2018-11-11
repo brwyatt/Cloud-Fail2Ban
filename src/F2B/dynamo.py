@@ -2,6 +2,7 @@ import logging
 
 import boto3
 from boto3.dynamodb.conditions import Key
+from boto3.dynamodb.conditions import Attr
 
 
 log = logging.getLogger()
@@ -38,5 +39,23 @@ def add_match(host, matchid, filter_name, timestamp, ttl, source=None,
             return False
 
 
-def check_ban(ip, jail):
-    return False
+def get_match_count(host, filters, since=None):
+    if type(filters) is str:
+        filters = [filters]
+    elif type(filters) is not list or type(filters[0]) is not str:
+        raise TypeError('"filters" must be a list of strings or a string')
+
+    filter_expression = Attr('Filter').is_in(filters)
+
+    if since:
+        if type(since) is int:
+            filter_expression = filter_expression & Attr('Timestamp').gt(since)
+        else:
+            raise TypeError('"since" should be an int or None')
+
+    response = table.query(
+        KeyConditionExpression=Key('Host').eq(host),
+        FilterExpression=filter_expression
+    )
+
+    return len(response['Items'])
