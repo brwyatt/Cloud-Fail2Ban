@@ -3,15 +3,15 @@
 from setuptools import setup
 
 setup(
-    name='F2B_Lambda',
+    name='Cloud-Fail2Ban',
     version='0.1.0',
     author='Bryan Wyatt',
     author_email='brwyatt@gmail.com',
-    description=('AWS Lambda-based Fail2Ban implementation using DynamoDB '
-                 'and SNS'),
+    description=('AWS Lambda-based Fail2Ban implementation using CloudWatch, '
+                 'DynamoDB, and SNS'),
     license='GPLv3',
-    keywords='Fail2Ban lambda aws dynamo dynamodb sns',
-    url='https://github.com/brwyatt/F2B_Lambda',
+    keywords='Fail2Ban lambda aws cloudwatch dynamo dynamodb sns sqs',
+    url='https://github.com/brwyatt/Cloud-Fail2Ban',
     packages=['F2B'],
     package_dir={'': 'src'},
     include_package_data=False,
