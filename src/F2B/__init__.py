@@ -56,17 +56,24 @@ def send_bans(bans):
     sns = boto3.resource('sns')
     topic = sns.create_topic(Name='F2B')
 
+    msgs = []
+
     for jail in bans:
         log.info('Publishing ban for "{0}": {1}'
                  .format(jail, bans[jail]))
-        res = topic.publish(
-            Message=json.dumps({jail: bans[jail]}),
-            MessageAttributes={
-                'jail': {
-                    'DataType': 'String',
-                    'StringValue': jail
-                }
+        msg = json.dumps({jail: bans[jail]})
+        msg_attr = {
+            'jail': {
+                'DataType': 'String',
+                'StringValue': jail
             }
+        }
+        res = topic.publish(
+            Message=msg,
+            MessageAttributes=msg_attr
         )
+        msgs.append({'Message': msg, 'MessageAttributes': msg_attr})
 
         log.debug('Publish result: {0}'.format(res))
+
+    return msgs
