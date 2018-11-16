@@ -55,4 +55,4 @@ class SimpleTestFilter(Filter):
      }),
 ])
 def test_process_log_events(test_data, filters, result):
-    assert process_log_events(test_data, filters) == result
+    assert sorted(process_log_events(test_data, filters)) == sorted(result)
