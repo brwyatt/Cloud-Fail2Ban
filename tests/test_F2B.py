@@ -1,7 +1,7 @@
 import pytest
 from uuid import uuid5
 
-from F2B import process_log_events, process_jails
+from F2B import boto3, process_log_events, process_jails, send_bans
 from F2B.filters import Filter
 from F2B.jails import Jail
 
@@ -115,3 +115,38 @@ def test_process_log_events(test_data, filters, result):
 ])
 def test_process_jails(test_data, jails, result):
     assert sorted(process_jails(test_data, jails)) == sorted(result)
+
+
+@pytest.mark.parametrize("test_data,result", [
+    ({}, []),
+    ({'jail1': []},
+     [
+         {'Message': '{"jail1": []}',
+          'MessageAttributes': {'jail': {
+              'DataType': 'String', 'StringValue': 'jail1'
+          }}}
+     ]),
+    ({'jail1': ['127.0.1.1'], 'jail2': ['127.0.2.2']},
+     [
+         {'Message': '{"jail1": ["127.0.1.1"]}',
+          'MessageAttributes': {'jail': {
+              'DataType': 'String', 'StringValue': 'jail1'
+          }}},
+         {'Message': '{"jail2": ["127.0.2.2"]}',
+          'MessageAttributes': {'jail': {
+              'DataType': 'String', 'StringValue': 'jail2'
+          }}}
+     ]),
+])
+def test_send_bans(monkeypatch, test_data, result):
+    class faketopic():
+        def publish(self, *args, **kwargs):
+            return True
+
+    class fakesns():
+        def create_topic(self, *args, **kwargs):
+            return faketopic()
+
+    monkeypatch.setattr(boto3, 'resource', lambda x: fakesns())
+
+    assert send_bans(test_data) == result
