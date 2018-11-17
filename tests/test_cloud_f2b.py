@@ -149,4 +149,5 @@ def test_send_bans(monkeypatch, test_data, result):
 
     monkeypatch.setattr(boto3, 'resource', lambda x: fakesns())
 
-    assert send_bans(test_data) == result
+    assert sorted(send_bans(test_data), key=lambda k: k['Message']) == \
+        sorted(result, key=lambda k: k['Message'])
