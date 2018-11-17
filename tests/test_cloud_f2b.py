@@ -1,9 +1,9 @@
 import pytest
 from uuid import uuid5
 
-from F2B import boto3, process_log_events, process_jails, send_bans
-from F2B.filters import Filter
-from F2B.jails import Jail
+from cloud_f2b import boto3, process_log_events, process_jails, send_bans
+from cloud_f2b.filters import Filter
+from cloud_f2b.jails import Jail
 
 
 class SimpleTestFilter(Filter):
@@ -14,7 +14,7 @@ class SimpleTestFilter(Filter):
 
 class SimpleTestJail(Jail):
     filters = [
-        'tests.test_F2B.SimpleTestFilter',
+        'tests.test_cloud_f2b.SimpleTestFilter',
     ]
 
     fail_limit = 0
@@ -49,7 +49,7 @@ class SimpleTestJail(Jail):
      ],
      [SimpleTestFilter, Filter],
      {
-         'tests.test_F2B.SimpleTestFilter': [
+         'tests.test_cloud_f2b.SimpleTestFilter': [
              {
                  'Host': '127.0.0.1',
                  'MatchID': uuid5(SimpleTestFilter().uuid, '21245'),
@@ -72,18 +72,18 @@ def test_process_log_events(test_data, filters, result):
      [Jail],
      {}),
     ({
-        'tests.test_F2B.SimpleTestFilter': [],
+        'tests.test_cloud_f2b.SimpleTestFilter': [],
      },
      [Jail],
      {}),
     ({
-        'tests.test_F2B.SimpleTestFilter': [],
-        'F2B.filters.Filter': []
+        'tests.test_cloud_f2b.SimpleTestFilter': [],
+        'cloud_f2b.filters.Filter': []
      },
      [Jail, SimpleTestJail],
      {}),
     ({
-        'F2B.filters.Filter': [
+        'cloud_f2b.filters.Filter': [
             {
                 'Host': '127.0.0.1',
                 'MatchID': uuid5(Filter().uuid, '21245'),
@@ -95,7 +95,7 @@ def test_process_log_events(test_data, filters, result):
                 'Timestamp': 1541698946
             }
         ],
-        'tests.test_F2B.SimpleTestFilter': [
+        'tests.test_cloud_f2b.SimpleTestFilter': [
             {
                 'Host': '127.0.1.1',
                 'MatchID': uuid5(SimpleTestFilter().uuid, '21245'),

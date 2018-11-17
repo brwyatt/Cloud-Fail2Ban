@@ -1,7 +1,7 @@
 import pytest
 from uuid import UUID
 
-from F2B.filters.auth.sshd_ddos import Sshd_Ddos
+from cloud_f2b.filters.auth.sshd_ddos import Sshd_Ddos
 
 
 @pytest.mark.parametrize("test_data,result", [
@@ -19,4 +19,4 @@ def test_sshd_ddos_filters(test_data, result):
 
 
 def test_sshd_ddos_filter_uuid():
-    assert Sshd_Ddos().uuid == UUID('051b3a45-048a-5201-b9b3-cde6835df08d')
+    assert Sshd_Ddos().uuid == UUID('564327d2-50dd-5f51-af5c-6c41b8f2fcbf')

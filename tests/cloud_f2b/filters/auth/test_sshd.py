@@ -1,7 +1,7 @@
 import pytest
 from uuid import UUID
 
-from F2B.filters.auth.sshd import Sshd
+from cloud_f2b.filters.auth.sshd import Sshd
 
 
 @pytest.mark.parametrize("test_data,result", [
@@ -27,4 +27,4 @@ def test_sshd_filters(test_data, result):
 
 
 def test_sshd_filter_uuid():
-    assert Sshd().uuid == UUID('8df75b77-776d-55d0-9371-262758aba00f')
+    assert Sshd().uuid == UUID('d758d7bb-b183-58e8-8119-5c8d27e2042b')

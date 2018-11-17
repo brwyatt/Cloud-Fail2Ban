@@ -2,7 +2,7 @@ import logging
 import re
 from uuid import UUID, uuid5
 
-from F2B.utils import compile_regex
+from cloud_f2b.utils import compile_regex
 
 
 class Filter():

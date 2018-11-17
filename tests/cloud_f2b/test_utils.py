@@ -3,7 +3,7 @@ import gzip
 import json
 import pytest
 
-import F2B.utils as utils
+import cloud_f2b.utils as utils
 
 
 @pytest.mark.parametrize("regex_str,subs,result", [

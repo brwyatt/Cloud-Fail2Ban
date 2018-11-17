@@ -1,6 +1,6 @@
 import pytest
 
-from F2B.jails.sshd_ddos import Sshd_Ddos
+from cloud_f2b.jails.sshd_ddos import Sshd_Ddos
 
 
 def test_sshd_ddos():

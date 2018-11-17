@@ -1,7 +1,7 @@
 import logging
 from time import time
 
-from F2B.dynamo import get_match_count
+from cloud_f2b.dynamo import get_match_count
 
 
 class Jail():

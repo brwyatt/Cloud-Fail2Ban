@@ -12,7 +12,7 @@ setup(
     license='GPLv3',
     keywords='Fail2Ban lambda aws cloudwatch dynamo dynamodb sns sqs',
     url='https://github.com/brwyatt/Cloud-Fail2Ban',
-    packages=['F2B'],
+    packages=['cloud_f2b'],
     package_dir={'': 'src'},
     include_package_data=False,
     setup_requires=[

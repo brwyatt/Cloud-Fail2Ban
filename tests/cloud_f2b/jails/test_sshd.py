@@ -1,6 +1,6 @@
 import pytest
 
-from F2B.jails.sshd import Sshd
+from cloud_f2b.jails.sshd import Sshd
 
 
 def test_sshd():

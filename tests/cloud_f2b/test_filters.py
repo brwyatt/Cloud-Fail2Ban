@@ -1,7 +1,7 @@
 import pytest
 from uuid import UUID
 
-from F2B.filters import Filter
+from cloud_f2b.filters import Filter
 
 
 @pytest.mark.parametrize("test_data,result", [

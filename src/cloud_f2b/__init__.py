@@ -4,7 +4,7 @@ from uuid import uuid5
 
 import boto3
 
-from F2B.dynamo import add_match
+from cloud_f2b.dynamo import add_match
 
 log = logging.getLogger()
 

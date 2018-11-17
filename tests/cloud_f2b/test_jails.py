@@ -1,7 +1,7 @@
 import pytest
 
-import F2B.jails
-from F2B.jails import Jail
+import cloud_f2b.jails
+from cloud_f2b.jails import Jail
 
 
 def test_jail():
@@ -67,6 +67,6 @@ def test_jail_check_bans(monkeypatch, filters, fail_limit, fail_window, matches,
         else:
             return 0
 
-    monkeypatch.setattr(F2B.jails, 'get_match_count', mock)
+    monkeypatch.setattr(cloud_f2b.jails, 'get_match_count', mock)
 
     assert sorted(jail.check_bans(matches)) == sorted(result)

@@ -1,6 +1,6 @@
 import pytest
 
-import F2B.dynamo as dynamo
+import cloud_f2b.dynamo as dynamo
 
 
 def test_add_match():
