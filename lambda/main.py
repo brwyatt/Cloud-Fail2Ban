@@ -2,13 +2,12 @@ import json
 import logging
 import os
 
-from F2B import process_log_events, process_jails, send_bans
-import F2B.filters.auth.sshd
-import F2B.filters.auth.sshd_ddos
-import F2B.jails.sshd
-import F2B.jails.sshd_ddos
-from F2B.utils import decompress_cloudwatch_event
-
+from cloud_f2b import process_log_events, process_jails, send_bans
+import cloud_f2b.filters.auth.sshd
+import cloud_f2b.filters.auth.sshd_ddos
+import cloud_f2b.jails.sshd
+import cloud_f2b.jails.sshd_ddos
+from cloud_f2b.utils import decompress_cloudwatch_event
 
 logging.basicConfig()  # needed to run outside Lambda
 log = logging.getLogger()
@@ -26,14 +25,14 @@ except:
 
 logParsers = {
     'Auth': [
-        F2B.filters.auth.sshd.Sshd,
-        F2B.filters.auth.sshd_ddos.Sshd_Ddos
+        cloud_f2b.filters.auth.sshd.Sshd,
+        cloud_f2b.filters.auth.sshd_ddos.Sshd_Ddos
     ]
 }
 
 jails = [
-    F2B.jails.sshd.Sshd,
-    F2B.jails.sshd_ddos.Sshd_Ddos
+    cloud_f2b.jails.sshd.Sshd,
+    cloud_f2b.jails.sshd_ddos.Sshd_Ddos
 ]
 
 
