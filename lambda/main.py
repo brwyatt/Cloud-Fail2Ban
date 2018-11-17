@@ -1,27 +1,16 @@
 import json
-import logging
-import os
 
 from cloud_f2b import process_log_events, process_jails, send_bans
 import cloud_f2b.filters.auth.sshd
 import cloud_f2b.filters.auth.sshd_ddos
 import cloud_f2b.jails.sshd
 import cloud_f2b.jails.sshd_ddos
+from cloud_f2b.logging import setup_logging
 from cloud_f2b.utils import decompress_cloudwatch_event
 
-logging.basicConfig()  # needed to run outside Lambda
-log = logging.getLogger()
 
-default_loglevel = 'INFO'
-loglevel = os.environ.get('LOGLEVEL', default_loglevel)
+log = setup_logging()
 
-try:
-    log.setLevel(getattr(logging, loglevel))
-    log.info('LogLevel set to "{0}"'.format(loglevel))
-except:
-    log.setLevel(getattr(logging, default_loglevel))
-    log.warning('LogLevel could not be set to "{0}", using default "{1}" '
-                'instead!'.format(loglevel, default_loglevel))
 
 logParsers = {
     'Auth': [
