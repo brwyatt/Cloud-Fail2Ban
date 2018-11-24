@@ -15,6 +15,11 @@ setup(
     packages=['cloud_f2b'],
     package_dir={'': 'src'},
     include_package_data=False,
+    entry_points={
+        'console_scripts': [
+            'cloud_f2b_client = cloud_f2b.client:main',
+        ],
+    },
     setup_requires=[
         'pytest-runner==3.0.1',
         'setuptools==20.7.0'
