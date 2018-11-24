@@ -81,13 +81,14 @@ def main():
 def ban_ips(jail, ips):
     for ip in ips:
         log.info('Banning {0} in {1}'.format(ip, jail))
-        res = run(['sudo', 'fail2ban-client', 'set', jail, 'banip', ip],
+        res = run(['sudo', '/usr/bin/fail2ban-client', 'set', jail, 'banip',
+                   ip],
                   stdout=PIPE, universal_newlines=True)
         log.debug(res.stdout)
 
 
 def get_jail_list():
-    res = run(['sudo', 'fail2ban-client', 'status'], stdout=PIPE,
+    res = run(['sudo', '/usr/bin/fail2ban-client', 'status'], stdout=PIPE,
               universal_newlines=True)
 
     # Grab the second-last line (last line is blank), grab the values (right of
