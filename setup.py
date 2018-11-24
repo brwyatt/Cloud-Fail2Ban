@@ -1,6 +1,6 @@
 #!/user/bin/env python
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='Cloud-Fail2Ban',
@@ -12,7 +12,7 @@ setup(
     license='GPLv3',
     keywords='Fail2Ban lambda aws cloudwatch dynamo dynamodb sns sqs',
     url='https://github.com/brwyatt/Cloud-Fail2Ban',
-    packages=['cloud_f2b'],
+    packages=find_packages(where='src'),
     package_dir={'': 'src'},
     include_package_data=False,
     entry_points={
