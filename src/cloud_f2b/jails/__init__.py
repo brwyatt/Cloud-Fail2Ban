@@ -44,7 +44,8 @@ class Jail():
             since = None
 
         for host in hosts:
-            self.log.debug('Checking host "{0}" for filter matches')
+            self.log.debug('Checking host "{0}" for filter matches'
+                           .format(host))
             match_count = get_match_count(host, self.filters, since=since)
             self.log.debug('Host "{0}" had {1} matches'.format(host,
                                                                match_count))
