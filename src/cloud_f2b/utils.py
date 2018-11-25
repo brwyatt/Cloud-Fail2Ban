@@ -36,3 +36,24 @@ def decompress_cloudwatch_event(event):
         event['awslogs']['data'])
 
     return event
+
+
+def dynamodb_event_to_matches(event):
+    matched_filters = list(set([x['dynamodb']['NewImage']['Filter']['S']
+                                for x in event.get('Records', [])
+                                if x['eventName'] in ['INSERT', 'MODIFY']]))
+    log.debug('Matched Filters: {0}'.format(matched_filters))
+
+    matches = {}
+    for matched_filter in matched_filters:
+        matches[matched_filter] = [
+            {
+                'Host': x['dynamodb']['NewImage']['Host']['S'],
+                'MatchID': x['dynamodb']['NewImage']['MatchID']['S'],
+                'Timestamp': int(x['dynamodb']['NewImage']['Timestamp']['N']),
+            }
+            for x in event.get('Records', [])
+            if x['eventName'] in ['INSERT', 'MODIFY']
+        ]
+
+    return matches
