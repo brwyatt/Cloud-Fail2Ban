@@ -428,7 +428,7 @@ def test_decompress_cloudwatch_event(test_data):
                                 'S': '127.0.0.1'
                             }
                         },
-                        'NewImage': {
+                        'OldImage': {
                             'Filter': {
                                 'S': 'cloud_f2b.filters.auth.sshd.Sshd'
                             },
