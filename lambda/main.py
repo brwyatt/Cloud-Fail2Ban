@@ -2,9 +2,7 @@ import json
 
 from cloud_f2b import process_log_events, process_jails, send_bans
 import cloud_f2b.filters.auth.sshd
-import cloud_f2b.filters.auth.sshd_ddos
 import cloud_f2b.jails.sshd
-import cloud_f2b.jails.sshd_ddos
 from cloud_f2b.logging import setup_logging
 from cloud_f2b.utils import (decompress_cloudwatch_event,
                              dynamodb_event_to_matches)
@@ -16,13 +14,11 @@ log = setup_logging()
 logParsers = {
     'Auth': [
         cloud_f2b.filters.auth.sshd.Sshd,
-        cloud_f2b.filters.auth.sshd_ddos.Sshd_Ddos
     ]
 }
 
 jails = [
     cloud_f2b.jails.sshd.Sshd,
-    cloud_f2b.jails.sshd_ddos.Sshd_Ddos
 ]
 
 
