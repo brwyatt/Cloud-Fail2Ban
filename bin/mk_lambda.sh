@@ -5,6 +5,8 @@ build_dir="${dir}/build"
 lambda_dir="${dir}/lambda"
 modules_dir="${dir}/src"
 dependencies_dir="${dir}/deps"
+lib_tmp_path="${build_dir}"
+lib_tmp_name="python"
 lambda_complete_zip="${build_dir}/lambda_function_complete.zip"
 lambda_function_zip="${build_dir}/lambda_function_all.zip"
 lambda_layer_zip="${build_dir}/lambda_layer_all.zip"
@@ -42,10 +44,13 @@ mkdir -p "${build_dir}/functions" "${build_dir}/layers"
 echo "Adding package modules..."
 cd "${modules_dir}"
 zip -r "${lambda_complete_zip}" * -i "*.py"
-zip -r "${lambda_layer_zip}" * -i "*.py"
-for file in $(ls | filter_dirs); do
-    zip -r "${build_dir}/layers/${file}.zip" "${file}" -i "*.py"
+cd "${lib_tmp_path}"
+ln -s "${modules_dir}" "${lib_tmp_name}"
+zip -r "${lambda_layer_zip}" "${lib_tmp_name}" -i "*.py"
+for file in $(ls "${lib_tmp_name}" | filter_dirs); do
+    zip -r "${build_dir}/layers/${file}.zip" "${lib_tmp_name}/${file}" -i "*.py"
 done
+rm -f "${lib_tmp_name}"
 
 # Process Lambda dir
 echo "Adding Lambda functions..."
@@ -64,13 +69,16 @@ rm -rf "${dependencies_dir}"/*
 grep -ive '^boto3[=<>]' requirements.txt | pip3 install -r /dev/stdin --target "${dependencies_dir}"
 cd "${dependencies_dir}"
 zip -r "${lambda_complete_zip}" * -i "*.py"
-for file in $(ls | filter_dirs); do
+cd "${lib_tmp_path}"
+ln -s "${dependencies_dir}" "${lib_tmp_name}"
+for file in $(ls "${lib_tmp_name}" | filter_dirs); do
     if [[ "${file}" == *".py" ]]; then
         filename="${file:0:-3}"
     else
         filename="${file}"
     fi
-    zip -r "${build_dir}/layers/${filename}.zip" "${file}" -i "*.py"
+    zip -r "${build_dir}/layers/${filename}.zip" ""${lib_tmp_name}"/${file}" -i "*.py"
 done
+rm -f "${lib_tmp_name}"
 
 # vim: ts=4 sts=4 sw=4 expandtab
