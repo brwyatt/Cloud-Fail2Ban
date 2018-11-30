@@ -28,7 +28,15 @@ Building the Lambda package
 bin/mk_lambda.sh
 ```
 
-This will collect all necessary files for running the Lambda function and output to `build/lambda.zip`, ready to be uploaded to AWS Lambda.
+This will collect all necessary files for running the Lambda function and output to various zip files, ready to upload to AWS Lambda.
+
+### Build Artifacts:
+
+* `lamdba_function_all.zip`: Contains all 3 files from `lambda/`, suitible for running as Lambda Functions with Lambda Layers.
+* `lamdba_function_complete.zip`: Contains all code necessary to run as self-contained Lambda Functions. Contains all 3 files from `lambda/`, all modules from `src/`, and all dependencies in `requirements.txt` (except `boto3`).
+* `lambda_layer_all.zip`: Contains all modules under `src/` and all dependencies from `requirements.txt` (except `boto3`). Can be used as a Lambda Layer to be used by Lambda Functions.
+* `functions/`: Contains zip files for each individual file in `lambda/`. Suitible for use as Lambda Functions with Lambda Layers.
+* `layers/`: Contains zip files for each individual package in `src/` and dependencies in `requirements.txt` (except `boto3`). Can be used as Lambda Layers to be used by Lambda Functions.
 
 ## Installing/Deploying
 
@@ -68,14 +76,14 @@ There are 3 files under the `lambda` directory that can be used in two different
 
 #### Single Lambda (Single-Region)
 
-`main.py:cloudwatch_run_filters_and_jails` provides an all-in-one Lambda function that may be used as a single-phase setup, checking jail rules immediately after checking logs for matches against the filters. This is good for single-region deployments that do not leverage DynamoDB Global Tables and DynamoDB Triggers.
+`cloudwatch_filter_and_jail.py:run` provides an all-in-one Lambda function that may be used as a single-phase setup, checking jail rules immediately after checking logs for matches against the filters. This is good for single-region deployments that do not leverage DynamoDB Global Tables and DynamoDB Triggers.
 
 #### 2-Phase Lambda (Multi-Region)
 
 This repository contains two alternate functions that are sufficient for a multi-region architecture and leverage a 2-phase Lambda configuration.
 
-`main.py:cloudwatch_run_filters` provides the first phase code that will accept logs streamed from CloudWatch, check the lines against the filters, and insert rows into DynamoDB.
+`cloudwatch_filter.py:run` provides the first phase code that will accept logs streamed from CloudWatch, check the lines against the filters, and insert rows into DynamoDB.
 
-`main.py:dynamodb_run_jails` receives row update information from DynamoDB triggers, checks the data stored in DynamoDB against jail rules for filter in the updated row(s), and sends out a ban alert to the SNS topic if the IP address is above a jail's threshold.
+`cloudwatch_jail.py:run` receives row update information from DynamoDB triggers, checks the data stored in DynamoDB against jail rules for filter in the updated row(s), and sends out a ban alert to the SNS topic if the IP address is above a jail's threshold.
 
 This allows for jail rules to be tested in all regions based on new matches from any region.
