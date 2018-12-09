@@ -71,6 +71,7 @@ cd "${dependencies_dir}"
 zip -r "${lambda_complete_zip}" * -i "*.py"
 cd "${lib_tmp_path}"
 ln -s "${dependencies_dir}" "${lib_tmp_name}"
+zip -r "${lambda_layer_zip}" * -i "*.py"
 for file in $(ls "${lib_tmp_name}" | filter_dirs); do
     if [[ "${file}" == *".py" ]]; then
         filename="${file:0:-3}"
