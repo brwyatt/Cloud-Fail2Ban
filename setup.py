@@ -28,7 +28,7 @@ setup(
         'boto3==1.7.35'
     ],
     tests_require=[
-        'pytest==3.4.1',
+        'pytest==5.2.0',
         'pytest-cov==2.5.1'
     ]
 )
