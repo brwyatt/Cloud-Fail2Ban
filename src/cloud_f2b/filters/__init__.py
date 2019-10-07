@@ -18,7 +18,7 @@ class Filter():
         '__kernel_prefix': 'kernel: \[ *\d+\.\d+\]',
         '__pid_re': '(?:\[\d+\])',
         '__md5hex': '(?:[\da-f]{2}:){15}[\da-f]{2}',
-        '__prefix_line': '%(__date_re)s %(__hostname)s %(_daemon)s%(__pid_re)s: ',
+        '__prefix_line': '%(__date_re)s %(__hostname)s %(_daemon)s%(__pid_re)s?: ',
     }
 
     failregexes = []
