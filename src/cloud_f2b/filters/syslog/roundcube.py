@@ -7,5 +7,5 @@ class Roundcube(Filter):
     }
 
     failregexes = [
-        '^%(__prefix_line)s\<\S+\> IMAP Error: Login failed for \S+@\S+ from %(host)s\. AUTHENTICATE \S*: Authentication failed\. .*$',
+        '^%(__prefix_line)s\<\S+\> IMAP Error: Login failed for \S+ from %(host)s\. AUTHENTICATE \S*: Authentication failed\. .*$',
     ]
