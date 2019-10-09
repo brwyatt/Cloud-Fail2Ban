@@ -3,8 +3,10 @@ import json
 from cloud_f2b import process_log_events, process_jails, send_bans
 import cloud_f2b.filters.auth.sshd
 import cloud_f2b.filters.syslog.dovecot
+import cloud_f2b.filters.syslog.postfix
 import cloud_f2b.filters.syslog.roundcube
 import cloud_f2b.jails.dovecot
+import cloud_f2b.jails.postfix
 import cloud_f2b.jails.roundcube
 import cloud_f2b.jails.sshd
 from cloud_f2b.logging import setup_logging
@@ -20,12 +22,14 @@ logParsers = {
     ],
     'Syslog': [
         cloud_f2b.filters.syslog.dovecot.Dovecot,
+        cloud_f2b.filters.syslog.postfix.Postfix,
         cloud_f2b.filters.syslog.roundcube.Roundcube,
     ],
 }
 
 jails = [
     cloud_f2b.jails.dovecot.Dovecot,
+    cloud_f2b.jails.postfix.Postfix,
     cloud_f2b.jails.roundcube.Roundcube,
     cloud_f2b.jails.sshd.Sshd,
 ]
