@@ -1,0 +1,53 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Globals:
+  Function:
+    Runtime: python3.7
+    Layers:
+      - !Ref CloudF2BLayer
+    Environment:
+      Variables:
+        LOGLEVEL: !Ref LogLevel
+        STAGE: !Ref Stage
+
+Parameters:
+  Stage:
+    Type: String
+    AllowedValues:
+      - Beta
+      - Gamma
+      - Prod
+    Default: Beta
+    Description: Stage that can be added to resource names
+  LogLevel:
+    Type: String
+    Default: 'DEBUG'
+    Description: Lambda Logging Level
+
+Resources:
+  CloudF2BLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: !Sub 'CloudF2B-${Stage}'
+      Description: Code for CloudF2B
+      ContentUri: build/
+      RetentionPolicy: Delete
+      CompatibleRuntimes:
+        - python3.7
+
+  PageContent:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: cloudwatch_filter.run
+      CodeUri: lambda/cloudwatch_filter.py
+      Policies: AWSLambdaBasicExecutionRole
+
+  TrackLinkClick:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: cloudwatch_jail.run
+      CodeUri: lambda/cloudwatch_jail.py
+      Policies: AWSLambdaBasicExecutionRole
+
+# vim: ts=2 sts=2 sw=2 expandtab
